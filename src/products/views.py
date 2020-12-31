@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSet
+
+from .producer import publish
 from .serializers import ProductSerializer
 from django.shortcuts import render
 from .models import Product, User
@@ -14,6 +16,7 @@ class ProductViewSet(ViewSet):
     def list(self, request):  # /api/products/
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
+        publish()
         return Response(data=serializer.data, status=200)
 
     def create(self, request):  # /api/product/create/

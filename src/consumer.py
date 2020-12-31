@@ -1,6 +1,10 @@
 import pika
+from dotenv import load_dotenv
+import os
 
-params = pika.URLParameters("amqps://ygfxrvwk:pRe_uyBY9BgrDQMbVyYJpn8qOosuVLHx@llama.rmq.cloudamqp.com/ygfxrvwk")
+load_dotenv('.env')
+
+params = pika.URLParameters(os.getenv('AMQP_URL'))
 
 connection = pika.BlockingConnection(params)
 
